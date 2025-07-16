@@ -44,7 +44,7 @@ st.markdown("""
 
 
 # Title
-st.markdown("<h1 style='text-align: center;'>🚀 Countdown to 16 August 2025</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🚀 Countdown till you come back</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Target datetime
