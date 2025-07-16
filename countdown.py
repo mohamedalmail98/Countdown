@@ -38,6 +38,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+    html, body, [class*="css"] {
+        color: white !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 
 
