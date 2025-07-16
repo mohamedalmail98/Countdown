@@ -9,6 +9,41 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+st.markdown("""
+    <style>
+    html, body, [class*="css"] {
+        color: white !important;
+        background-color: transparent !important;
+    }
+    
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-image: url('https://images.unsplash.com/photo-1477201389074-1863f668fac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -1;
+        opacity: 1;
+    }
+
+    .stApp {
+        background-color: rgba(0, 0, 0, 0.75);
+        padding: 2rem;
+        border-radius: 1rem;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, div, span, label {
+        color: white !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 
 # Apply custom CSS for space background and text styling
 st.markdown("""
