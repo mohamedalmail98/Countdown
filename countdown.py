@@ -4,7 +4,7 @@ import time
 
 # Page configuration
 st.set_page_config(
-    page_title="Countdown to 16 August 2025",
+    page_title="Countdown till you come back",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
