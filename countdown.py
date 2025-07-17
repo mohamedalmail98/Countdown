@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import datetime, date, time as dt_time
+from datetime import datetime, time as dt_time
 import time
 import random
 
@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- CSS: Space Background & White Font Everywhere ---
+# --- CSS: Space Background & White Font ---
 st.markdown("""
     <style>
     html, body, [class*="css"] {
@@ -49,7 +49,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Astronomy Facts by Time Remaining (0-30 days) ---
+# --- Astronomy Facts by Remaining Time ---
 fact_categories = {
     "21_30": [
         "The Moon completes an orbit of Earth in about 27.3 days — just like your countdown window.",
@@ -106,9 +106,8 @@ def get_fact_for_remaining_time(remaining_days):
         return random.choice(fact_categories["complete"])
 
 # --- Countdown Setup ---
-target_date = datetime(2025, 8, 16, 0, 0, 0)
-today = date.today()
-start_date = datetime.combine(today, dt_time(0, 0, 0))  # midnight today
+start_date = datetime(2025, 7, 16, 0, 0, 0)  # FIXED start date
+target_date = datetime(2025, 8, 16, 0, 0, 0)  # end date
 
 total_duration = (target_date - start_date).total_seconds()
 
@@ -129,38 +128,6 @@ current_fact = get_fact_for_remaining_time((target_date - datetime.now()).days)
 while True:
     now = datetime.now()
 
-    if now >= target_date:
-        countdown_placeholder.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
-        progress_bar.progress(100)
-        percent_placeholder.markdown("**100% completed**")
-        fact_placeholder.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
-        break
+    if now >= t
 
-    remaining = target_date - now
-    days = remaining.days
-    hours, rem = divmod(remaining.seconds, 3600)
-    minutes, seconds = divmod(rem, 60)
-
-    countdown_html = f"""
-    <div style="text-align: center; font-size: 2em;">
-        <p><strong>{days}</strong> days</p>
-        <p><strong>{hours:02}</strong> hours</p>
-        <p><strong>{minutes:02}</strong> minutes</p>
-        <p><strong>{seconds:02}</strong> seconds</p>
-    </div>
-    """
-    countdown_placeholder.markdown(countdown_html, unsafe_allow_html=True)
-
-    elapsed_seconds = (now - start_date).total_seconds()
-    percent_complete = max(0, min(100, (elapsed_seconds / total_duration) * 100))
-    progress_bar.progress(int(percent_complete))
-    percent_placeholder.markdown(f"**{percent_complete:.2f}% completed**")
-
-    if time.time() - last_fact_time > 20:
-        current_fact = get_fact_for_remaining_time(days)
-        last_fact_time = time.time()
-
-    fact_placeholder.markdown(f"<div class='fact'>🌌 {current_fact}</div>", unsafe_allow_html=True)
-
-    time.sleep(1)
 
