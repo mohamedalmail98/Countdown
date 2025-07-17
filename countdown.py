@@ -8,7 +8,6 @@ st.set_page_config(
     page_title="Countdown till you come back",
     layout="centered",
     initial_sidebar_state="collapsed"
-    z-index: 2;
 )
 
 # --- CSS: Space Background & Fully White Fonts ---
