@@ -128,7 +128,13 @@ current_fact = get_fact_for_remaining_time((target_date - datetime.now()).days)
 while True:
     now = datetime.now()
 
-    if now >= target_date:
+if now >= target_date:
+    countdown_placeholder.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
+    progress_bar.progress(100)
+    percent_placeholder.markdown("**100% completed**")
+    fact_placeholder.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
+    break
+
 
 
 
