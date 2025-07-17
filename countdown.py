@@ -41,8 +41,12 @@ st.markdown("""
     pointer-events: none; /* so it doesn’t block clicks */
 }
     st.markdown("""
+    <style>
+    /* Your CSS here */
+    </style>
     <img id="overlay-image" src="https://pngimg.com/uploads/astronaut/astronaut_PNG33.png" />
 """, unsafe_allow_html=True)
+
 
 
         
