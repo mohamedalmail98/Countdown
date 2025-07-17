@@ -106,7 +106,7 @@ def get_facts_list_for_remaining_time(remaining_days):
 start_date = datetime(2025, 7, 16, 0, 0, 0)
 target_date = datetime(2025, 8, 16, 0, 0, 0)
 
-st.markdown("<h1 style='text-align: center; font-size: 36px;'> 🤍⌛ Countdown till you come back ⌛🤍</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 36px;'> ❤︎❤︎⌛ Countdown till you come back ⌛❤︎❤︎</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Placeholder for updating UI
