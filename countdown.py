@@ -128,6 +128,7 @@ current_fact = get_fact_for_remaining_time((target_date - datetime.now()).days)
 while True:
     now = datetime.now()
 
-    if now >= t
+    if now >= target_date:
+
 
 
