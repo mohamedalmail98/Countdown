@@ -40,7 +40,7 @@ st.markdown("""
     max-width: 400px; /* scale it */
     pointer-events: none; /* so it doesn’t block clicks */
 }
-st.markdown("""
+    st.markdown("""
     <img id="overlay-image" src="https://pngimg.com/uploads/astronaut/astronaut_PNG33.png" />
 """, unsafe_allow_html=True)
 
