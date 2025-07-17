@@ -5,7 +5,7 @@ import random
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="Countdown till you come back",
+    page_title="Countdown till you come back ⌛",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
