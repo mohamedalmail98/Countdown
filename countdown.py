@@ -9,13 +9,15 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- CSS for Background and White Text ---
+# --- CSS: Space Background & Fully White Fonts ---
 st.markdown("""
     <style>
-    html, body, [class*="css"] {
+    /* Universal white text */
+    html, body, [class*="css"], .stMarkdown, .stText, .stTitle, .stHeader, .stSubheader, .stCaption, .stLabel, .stDataFrame, .stProgress {
         color: white !important;
-        background-color: transparent !important;
     }
+
+    /* Background image */
     body::before {
         content: "";
         position: fixed;
@@ -30,17 +32,21 @@ st.markdown("""
         z-index: -1;
         opacity: 1;
     }
+
+    /* Card-style overlay */
     .stApp {
         background-color: rgba(0, 0, 0, 0.75);
         padding: 2rem;
         border-radius: 1rem;
     }
+
+    /* Centered fact text */
     .fact {
         text-align: center;
         font-style: italic;
         margin-top: 20px;
         font-size: 1.1em;
-        color: #cccccc !important;
+        color: #ffffff !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -102,11 +108,10 @@ def get_fact_for_remaining_time(remaining_days):
         return random.choice(fact_categories["complete"])
 
 # --- Countdown Setup ---
-start_date = datetime(2025, 7, 16, 0, 0, 0)  # fixed start date
+start_date = datetime(2025, 7, 16, 0, 0, 0)  # fixed start
 target_date = datetime(2025, 8, 16, 0, 0, 0)
 now = datetime.now()
 
-# --- Time calculations ---
 total_duration = (target_date - start_date).total_seconds()
 elapsed = (now - start_date).total_seconds()
 remaining = target_date - now
@@ -118,11 +123,10 @@ st.markdown("---")
 
 if now >= target_date:
     st.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
-    st.progress(100)
+    st.progress(1.0)
     st.markdown("**100% completed**")
     st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
 else:
-    # Show countdown
     days = remaining.days
     hours, rem = divmod(remaining.seconds, 3600)
     minutes, seconds = divmod(rem, 60)
@@ -139,6 +143,5 @@ else:
     st.progress(percent_complete / 100)
     st.markdown(f"**{percent_complete:.2f}% completed**")
     st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(days)}</div>", unsafe_allow_html=True)
-
 
 
