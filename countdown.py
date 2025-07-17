@@ -22,7 +22,7 @@ st.markdown("""
         position: fixed;
         top: 0; left: 0;
         height: 100vh; width: 100vw;
-        background-image: url('https://www.shutterstock.com/image-vector/beautiful-cosmic-outer-space-background-600nw-2239393217.jpg');
+        background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201112/pngtree-cosmic-starry-fantasy-starry-background-image_468786.jpg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
