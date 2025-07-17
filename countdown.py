@@ -1,4 +1,17 @@
 import streamlit as st
+import time
+
+placeholder = st.empty()
+
+for i in range(1000000):  # effectively infinite loop
+    now = datetime.now()
+    # your code that depends on now goes here, but you must put all UI rendering inside this loop or in a function called here
+    
+    # example minimal wait
+    time.sleep(1)
+    placeholder.empty()
+    st.experimental_rerun()
+import streamlit as st
 from datetime import datetime
 import random
 from streamlit_autorefresh import st_autorefresh
