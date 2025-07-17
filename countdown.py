@@ -83,21 +83,21 @@ fact_categories = {
     ]
 }
 
-def get_fact_for_remaining_time(remaining_days):
+def get_facts_list_for_remaining_time(remaining_days):
     if 21 <= remaining_days <= 30:
-        return random.choice(fact_categories["21_30"])
+        return fact_categories["21_30"]
     elif 14 <= remaining_days < 21:
-        return random.choice(fact_categories["14_21"])
+        return fact_categories["14_21"]
     elif 7 <= remaining_days < 14:
-        return random.choice(fact_categories["7_14"])
+        return fact_categories["7_14"]
     elif 3 <= remaining_days < 7:
-        return random.choice(fact_categories["3_7"])
+        return fact_categories["3_7"]
     elif 1 <= remaining_days < 3:
-        return random.choice(fact_categories["1_3"])
+        return fact_categories["1_3"]
     elif 0 <= remaining_days < 1:
-        return random.choice(fact_categories["final_day"])
+        return fact_categories["final_day"]
     else:
-        return random.choice(fact_categories["complete"])
+        return fact_categories["complete"]
 
 # Countdown dates
 start_date = datetime(2025, 7, 16, 0, 0, 0)
@@ -106,8 +106,14 @@ target_date = datetime(2025, 8, 16, 0, 0, 0)
 st.markdown("<h1 style='text-align: center;'>🚀 Countdown till you come back</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
-# Create a placeholder to hold the countdown UI that we update
+# Placeholder for updating UI
 placeholder = st.empty()
+
+# Initialize session state variables for fact cycling
+if 'fact_index' not in st.session_state:
+    st.session_state.fact_index = 0
+if 'last_fact_time' not in st.session_state:
+    st.session_state.last_fact_time = time.time()
 
 while True:
     now = datetime.now()
@@ -121,13 +127,24 @@ while True:
             st.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
             st.progress(1.0)
             st.markdown("**100% completed**")
-            st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
+            # Show a final fact
+            facts_list = fact_categories["complete"]
+            fact_to_show = facts_list[st.session_state.fact_index % len(facts_list)]
+            st.markdown(f"<div class='fact'>🌌 {fact_to_show}</div>", unsafe_allow_html=True)
         break  # countdown finished, exit loop
 
     else:
         days = remaining.days
         hours, rem = divmod(remaining.seconds, 3600)
         minutes, seconds = divmod(rem, 60)
+
+        # Update fact every 6 seconds
+        facts_list = get_facts_list_for_remaining_time(days)
+        current_time = time.time()
+        if current_time - st.session_state.last_fact_time > 6:
+            st.session_state.fact_index = (st.session_state.fact_index + 1) % len(facts_list)
+            st.session_state.last_fact_time = current_time
+        fact_to_show = facts_list[st.session_state.fact_index]
 
         countdown_html = f"""
         <div style="text-align: center; font-size: 2em;">
@@ -141,7 +158,8 @@ while True:
             st.markdown(countdown_html, unsafe_allow_html=True)
             st.progress(percent_complete / 100)
             st.markdown(f"**{percent_complete:.2f}% completed**")
-            st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(days)}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='fact'>🌌 {fact_to_show}</div>", unsafe_allow_html=True)
 
-    time.sleep(1)  # wait 1 second before updating again
+    time.sleep(1)
+
 
