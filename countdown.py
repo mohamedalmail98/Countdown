@@ -1,6 +1,10 @@
 import streamlit as st
 from datetime import datetime
 import random
+from streamlit_autorefresh import st_autorefresh
+
+# Auto-refresh page every 1000 milliseconds (1 second)
+st_autorefresh(interval=1000, limit=None, key="timer")
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -102,7 +106,7 @@ def get_fact_for_remaining_time(remaining_days):
         return random.choice(fact_categories["3_7"])
     elif 1 <= remaining_days < 3:
         return random.choice(fact_categories["1_3"])
-    elif remaining_days < 1:
+    elif 0 <= remaining_days < 1:
         return random.choice(fact_categories["final_day"])
     else:
         return random.choice(fact_categories["complete"])
@@ -113,7 +117,7 @@ target_date = datetime(2025, 8, 16, 0, 0, 0)
 now = datetime.now()
 
 total_duration = (target_date - start_date).total_seconds()
-elapsed = (now - start_date).total_seconds()
+elapsed = max(0, (now - start_date).total_seconds())  # Ensure non-negative
 remaining = target_date - now
 percent_complete = max(0, min(100, (elapsed / total_duration) * 100))
 
@@ -143,5 +147,6 @@ else:
     st.progress(percent_complete / 100)
     st.markdown(f"**{percent_complete:.2f}% completed**")
     st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(days)}</div>", unsafe_allow_html=True)
+
 
 
