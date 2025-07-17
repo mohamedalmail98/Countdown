@@ -27,7 +27,7 @@ st.markdown("""
         background-position: center;
         background-attachment: fixed;
         z-index: -1;
-        opacity: 11;
+        opacity: 20;
         filter: brightness(1.7);
     }
 
