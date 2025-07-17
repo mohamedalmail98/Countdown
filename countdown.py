@@ -22,13 +22,13 @@ st.markdown("""
         position: fixed;
         top: 0; left: 0;
         height: 100vh; width: 100vw;
-        background-image: url('https://img.freepik.com/premium-photo/blue-copy-space-digital-abstract-background_731790-155500.jpg?semt=ais_hybrid&w=740');
+        background-image: url('https://www.color-meanings.com/wp-content/uploads/2025/01/bright-colors-deep-space-1024x614.jpeg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         z-index: -1;
         opacity: 1;
-        filter: brightness(2) contrast(3);
+        filter: brightness(1.3) contrast(1);
     }
 
 
