@@ -1,12 +1,7 @@
-bash
-pip install streamlit streamlit-autorefresh
 import streamlit as st
 from datetime import datetime
+import time
 import random
-from streamlit_autorefresh import st_autorefresh
-
-# Auto-refresh page every 1000 milliseconds (1 second)
-st_autorefresh(interval=1000, limit=None, key="timer")
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -18,19 +13,15 @@ st.set_page_config(
 # --- CSS: Space Background & Fully White Fonts ---
 st.markdown("""
     <style>
-    /* Universal white text */
-    html, body, [class*="css"], .stMarkdown, .stText, .stTitle, .stHeader, .stSubheader, .stCaption, .stLabel, .stDataFrame, .stProgress {
+    html, body, [class*="css"], .stMarkdown, .stText, .stTitle, .stHeader,
+    .stSubheader, .stCaption, .stLabel, .stDataFrame, .stProgress {
         color: white !important;
     }
-
-    /* Background image */
     body::before {
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
+        top: 0; left: 0;
+        height: 100vh; width: 100vw;
         background-image: url('https://images.unsplash.com/photo-1477201389074-1863f668fac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
         background-size: cover;
         background-position: center;
@@ -38,15 +29,11 @@ st.markdown("""
         z-index: -1;
         opacity: 1;
     }
-
-    /* Card-style overlay */
     .stApp {
         background-color: rgba(0, 0, 0, 0.75);
         padding: 2rem;
         border-radius: 1rem;
     }
-
-    /* Centered fact text */
     .fact {
         text-align: center;
         font-style: italic;
@@ -57,7 +44,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Space Facts by Time Remaining ---
 fact_categories = {
     "21_30": [
         "The Moon completes an orbit of Earth in about 27.3 days — just like your countdown window.",
@@ -113,39 +99,49 @@ def get_fact_for_remaining_time(remaining_days):
     else:
         return random.choice(fact_categories["complete"])
 
-# --- Countdown Setup ---
-start_date = datetime(2025, 7, 16, 0, 0, 0)  # fixed start
+# Countdown dates
+start_date = datetime(2025, 7, 16, 0, 0, 0)
 target_date = datetime(2025, 8, 16, 0, 0, 0)
-now = datetime.now()
 
-total_duration = (target_date - start_date).total_seconds()
-elapsed = max(0, (now - start_date).total_seconds())  # Ensure non-negative
-remaining = target_date - now
-percent_complete = max(0, min(100, (elapsed / total_duration) * 100))
-
-# --- Layout ---
 st.markdown("<h1 style='text-align: center;'>🚀 Countdown till you come back</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
-if now >= target_date:
-    st.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
-    st.progress(1.0)
-    st.markdown("**100% completed**")
-    st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
-else:
-    days = remaining.days
-    hours, rem = divmod(remaining.seconds, 3600)
-    minutes, seconds = divmod(rem, 60)
+# Create a placeholder to hold the countdown UI that we update
+placeholder = st.empty()
 
-    countdown_html = f"""
-    <div style="text-align: center; font-size: 2em;">
-        <p><strong>{days}</strong> days</p>
-        <p><strong>{hours:02}</strong> hours</p>
-        <p><strong>{minutes:02}</strong> minutes</p>
-        <p><strong>{seconds:02}</strong> seconds</p>
-    </div>
-    """
-    st.markdown(countdown_html, unsafe_allow_html=True)
-    st.progress(percent_complete / 100)
-    st.markdown(f"**{percent_complete:.2f}% completed**")
-    st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(days)}</div>", unsafe_allow_html=True)
+while True:
+    now = datetime.now()
+    total_duration = (target_date - start_date).total_seconds()
+    elapsed = max(0, (now - start_date).total_seconds())
+    remaining = target_date - now
+    percent_complete = max(0, min(100, (elapsed / total_duration) * 100))
+
+    if now >= target_date:
+        with placeholder.container():
+            st.markdown("<h2 style='text-align: center; color: lightgreen;'>🎉 The day has arrived! 🎉</h2>", unsafe_allow_html=True)
+            st.progress(1.0)
+            st.markdown("**100% completed**")
+            st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(0)}</div>", unsafe_allow_html=True)
+        break  # countdown finished, exit loop
+
+    else:
+        days = remaining.days
+        hours, rem = divmod(remaining.seconds, 3600)
+        minutes, seconds = divmod(rem, 60)
+
+        countdown_html = f"""
+        <div style="text-align: center; font-size: 2em;">
+            <p><strong>{days}</strong> days</p>
+            <p><strong>{hours:02}</strong> hours</p>
+            <p><strong>{minutes:02}</strong> minutes</p>
+            <p><strong>{seconds:02}</strong> seconds</p>
+        </div>
+        """
+        with placeholder.container():
+            st.markdown(countdown_html, unsafe_allow_html=True)
+            st.progress(percent_complete / 100)
+            st.markdown(f"**{percent_complete:.2f}% completed**")
+            st.markdown(f"<div class='fact'>🌌 {get_fact_for_remaining_time(days)}</div>", unsafe_allow_html=True)
+
+    time.sleep(1)  # wait 1 second before updating again
+
