@@ -27,8 +27,8 @@ st.markdown("""
         background-position: center;
         background-attachment: fixed;
         z-index: -1;
-        opacity: 2;
-        filter: brightness(1.3);
+        opacity: 5;
+        filter: brightness(2);
     }
     .stApp {
         background-color: rgba(0, 0, 0, 0.75);
