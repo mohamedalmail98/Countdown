@@ -26,7 +26,7 @@ st.markdown("""
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        z-index: -1;
+        z-index: 1;
         opacity: 1;
         filter: brightness(1.3) contrast(1);
     }
