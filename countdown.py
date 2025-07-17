@@ -30,26 +30,7 @@ st.markdown("""
         opacity: 6;
         filter: brightness(1.3);
     }
-    #overlay-image {
-    position: fixed;
-    top: 50%;   /* vertical center */
-    left: 50%;  /* horizontal center */
-    transform: translate(-50%, -50%);
-    z-index: 0;  /* above background but below UI (which usually has z-index > 0) */
-    opacity: 0.3; /* optional transparency */
-    max-width: 400px; /* scale it */
-    pointer-events: none; /* so it doesn’t block clicks */
-}
-    st.markdown("""
-    <style>
-    /* Your CSS here */
-    </style>
-    <img id="overlay-image" src="https://pngimg.com/uploads/astronaut/astronaut_PNG33.png" />
-""", unsafe_allow_html=True)
 
-
-
-        
 
     .stApp {
         background-color: rgba(0, 0, 0, 0.75);
