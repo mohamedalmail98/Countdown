@@ -141,7 +141,7 @@ while True:
         # Update fact every 6 seconds
         facts_list = get_facts_list_for_remaining_time(days)
         current_time = time.time()
-        if current_time - st.session_state.last_fact_time > 6:
+        if current_time - st.session_state.last_fact_time > 7:
             st.session_state.fact_index = (st.session_state.fact_index + 1) % len(facts_list)
             st.session_state.last_fact_time = current_time
         fact_to_show = facts_list[st.session_state.fact_index]
