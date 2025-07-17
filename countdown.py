@@ -22,7 +22,7 @@ st.markdown("""
         position: fixed;
         top: 0; left: 0;
         height: 100vh; width: 100vw;
-        background-image: url('https://www.color-meanings.com/wp-content/uploads/2025/01/bright-colors-deep-space-1024x614.jpeg');
+        background-image: url('https://www.shutterstock.com/image-vector/beautiful-cosmic-outer-space-background-600nw-2239393217.jpg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
